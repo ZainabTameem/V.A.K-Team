@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>V.A.K - The Team</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:     #060d1f;
+      --card:   #0c1830;
+      --border: rgba(255,255,255,0.07);
+      --text:   #ffffff;
+      --muted:  #a0aec0;
+      --blue:   #3b7cff;
+      --orange: #f5a623;
+      --green:  #00e5a0;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+    }
+
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.022) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.022) 1px, transparent 1px);
+      background-size: 52px 52px;
+      pointer-events: none; z-index: 0;
+    }
+
+    /* HEADER */
+    header {
+      position: relative; z-index: 10;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 48px; height: 56px;
+      border-bottom: 1px solid var(--border);
+    }
+    .h-logo {
+      font-family: 'DM Mono', monospace;
+      font-size: .90rem; letter-spacing: .1em; color: #ffffff;
+    }
+    .h-logo strong { color: #ffffff; font-weight: 600; }
+
+    /* HERO */
+    .hero {
+      position: relative; z-index: 1;
+      text-align: center;
+      padding: 40px 20px 20px;
+      overflow: hidden;
+    }
+    .hero-title {
+      font-family: 'Syne', sans-serif; font-weight: 800;
+      font-size: clamp(5rem, 16vw, 11rem);
+      line-height: .80; letter-spacing: -.02em;
+      color: #ffffff;
+      margin-bottom: 15px;
+    }
+    .hero-title .b { color: var(--blue); }
+    .hero-title .o { color: var(--orange); }
+
+    .hero-tagline {
+      display: flex; align-items: center; justify-content: center;
+      gap: 16px; margin-bottom: 15px; flex-wrap: wrap;
+    }
+    .hero-tagline span {
+      font-family: 'DM Mono', monospace;
+      font-size: .8rem; letter-spacing: .16em;
+      text-transform: uppercase; color: #ffffff;
+    }
+    .sep {
+      width: 5px; height: 5px; border-radius: 50%;
+      background: var(--orange); opacity: .8; flex-shrink: 0;
+    }
+
+    .hero-line {
+      font-family: 'Syne', sans-serif; font-weight: 700;
+      font-size: clamp(1.2rem, 2.8vw, 1.7rem);
+      line-height: 1.35; color: #ffffff;
+      max-width: 100%; margin: 0 auto 16px;
+    }
+    .hero-line em { font-style: normal; color: var(--orange); }
+
+    .hero-sub {
+      font-size: 1rem; line-height: 1.8;
+      color: #ffffff; max-width: 100%; margin: 0 auto;
+    }
+
+    /* TEAM SECTION */
+    .team-section {
+      position: relative; z-index: 1;
+      max-width: 1160px; margin: 0 auto;
+      padding: 20px 20px 20px;
+    }
+    .team-label {
+      font-family: 'DM Mono', monospace;
+      font-size: .87rem; letter-spacing: .22em;
+      text-transform: uppercase; color: #ffffff;
+      margin-bottom: 40px;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .team-label::after { content:''; flex:1; height:1px; background:#919191; }
+
+    .members-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    /* CARD */
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px 16px 22px;
+      text-align: center;
+      transition: border-color .25s, transform .25s;
+      display: flex; flex-direction: column; align-items: center;
+    }
+    .card:hover {
+      border-color: var(--orange);
+      transform: translateY(-4px);
+    }
+
+    .avatar {
+      width: 120px; height: 120px; border-radius: 50%;
+      margin-bottom: 16px; overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.12); flex-shrink: 0;
+      background: #0a1628;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .avatar img { width:100%; height:100%; object-fit:cover; display:block; object-position: center top; filter: contrast(1.05) brightness(1.05);}
+    .avatar svg { width: 60px; height: 60px; }
+
+    .card-name {
+      font-family: 'Syne', sans-serif; font-weight: 700;
+      font-size: 1.05rem; margin-bottom: 5px; color: #ffffff;
+    }
+    .card-role {
+      font-family: 'DM Mono', monospace;
+      font-size: .75rem; 
+      font-weight: 500;
+      text-transform: uppercase; color: var(--orange);
+      margin-bottom: 14px;
+    }
+
+    .card-links {
+      display: flex; align-items: center; justify-content: center;
+      gap: 10px; margin-bottom: 14px;
+    }
+    .card-link {
+      width: 32px; height: 32px; border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.1);
+      display: flex; align-items: center; justify-content: center;
+      text-decoration: none;
+      transition: border-color .2s, background .2s;
+    }
+    .card-link:hover { border-color: var(--orange); background: rgba(245,166,35,0.08); }
+    .card-link svg { width: 15px; height: 15px; }
+
+    .squad-tag {
+      margin-top: auto;
+      font-family: 'DM Mono', monospace;
+      font-size: .62rem; letter-spacing: .1em;
+      text-transform: uppercase;
+      padding: 4px 12px; border-radius: 999px;
+    }
+    .tag-a { color: var(--blue);   background: rgba(59,124,255,0.08);  border: 1px solid rgba(59,124,255,0.25); }
+    .tag-b { color: var(--orange); background: rgba(245,166,35,0.08);  border: 1px solid rgba(245,166,35,0.25); }
+    .tag-c { color: var(--green);  background: rgba(0,229,160,0.07);   border: 1px solid rgba(0,229,160,0.2);  }
+
+    /* ── ABOUT SECTION ── */
+    .about {
+      position: relative; z-index: 1;
+      max-width: 1160px; margin: 0 auto;
+      padding: 0 20px 0px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: start;
+    }
+
+    .about-section-label {
+      font-family: 'DM Mono', monospace;
+      font-size: .87rem; letter-spacing: .22em;
+      text-transform: uppercase; color: #ffffff;
+      display: flex; align-items: center; gap: 12px;
+      grid-column: 1 / -1;
+      padding-top: 35px;
+      margin-bottom: -25px;
+    }
+    .about-section-label::after { content:''; flex:1; height:1px; background:#919191; }
+
+    .about-heading {
+      font-family: 'Syne', sans-serif; font-weight: 800;
+      font-size: clamp(1.3rem, 2.2vw, 1.8rem);
+      line-height: 1.15; color: #ffffff;
+      margin-bottom: 18px;
+    }
+    .about-heading em { font-style: normal; color: var(--orange); }
+
+    .about-body {
+      font-size: .95rem; line-height: 1.85;
+      color: #ffffff;
+      margin-bottom: 15px;
+    }
+
+    .stack-label {
+      font-family: 'DM Mono', monospace;
+      font-size: .62rem; letter-spacing: .2em;
+      text-transform: uppercase; color: #ffffff;
+      margin-bottom: 12px;
+    }
+    .stack-tags {
+      display: flex; flex-wrap: wrap; gap: 8px;
+    }
+    .stack-tag {
+      font-family: 'DM Mono', monospace;
+      font-size: .65rem; letter-spacing: .08em;
+      padding: 5px 14px; border-radius: 999px;
+      border: 1px solid var(--border);
+      color: var(--text);
+      background: var(--card);
+      transition: border-color .2s, color .2s;
+    }
+    .stack-tag:hover { border-color: var(--blue); color: var(--blue); }
+    .stack-tag.hi { border-color: rgba(59,124,255,0.3); color: var(--blue); }
+
+    .about-right {
+      display: flex; flex-direction: column; gap: 12px;
+    }
+
+    .feature {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px 22px;
+      display: flex; gap: 18px; align-items: flex-start;
+      transition: border-color .25s, transform .2s;
+    }
+    .feature:hover {
+      border-color: rgba(59,124,255,0.35);
+      transform: translateX(4px);
+    }
+    .feature-icon {
+      width: 36px; height: 36px; border-radius: 10px;
+      background: rgba(59,124,255,0.08);
+      border: 1px solid rgba(59,124,255,0.2);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .feature-icon svg { width: 16px; height: 16px; }
+    .feature-icon.orange { background: rgba(245,166,35,0.08); border-color: rgba(245,166,35,0.2); }
+    .feature-icon.green  { background: rgba(0,229,160,0.07);  border-color: rgba(0,229,160,0.2);  }
+
+    .feature-title {
+      font-family: 'Syne', sans-serif; font-weight: 700;
+      font-size: .9rem; color: #ffffff; margin-bottom: 4px;
+    }
+    .feature-desc {
+      font-family: 'DM Sans', sans-serif;
+      font-size: .82rem; line-height: 1.6; color: #ffffff;
+    }
+
+    /* ── REPO SECTION ── */
+    .repo {
+      position: relative; z-index: 1;
+      max-width: 1160px; margin: 0 auto;
+      padding: 0 48px 80px;
+    }
+    .repo-section-label {
+      font-family: 'DM Mono', monospace;
+      font-size: .87rem; letter-spacing: .22em;
+      text-transform: uppercase; color: #ffffff;
+      margin-bottom: 40px;
+      display: flex; align-items: center; gap: 20px;
+      padding-top: 40px;
+    }
+    .repo-section-label::after { content:''; flex:1; height:1px; background:#919191; }
+
+    .repo-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .repo-tree {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+    }
+    .repo-tree-header {
+      display: flex; align-items: center; gap: 8px;
+      padding: 12px 18px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(255,255,255,0.02);
+    }
+    .tree-dot { width: 10px; height: 10px; border-radius: 50%; }
+    .tree-dot.r { background: #ff5f57; }
+    .tree-dot.y { background: #febc2e; }
+    .tree-dot.g { background: #28c840; }
+    .repo-tree-title {
+      font-family: 'DM Mono', monospace;
+      font-size: .68rem; letter-spacing: .1em;
+      color: var(--muted); margin-left: 6px;
+    }
+    .repo-tree-body {
+      padding: 18px 20px;
+      font-family: 'DM Mono', monospace;
+      font-size: .75rem; line-height: 2;
+      color: var(--muted);
+    }
+    .tree-line { display: flex; align-items: baseline; gap: 6px; }
+    .tree-line .dir  { color: var(--blue); }
+    .tree-line .file { color: var(--text); }
+    .tree-line .note { color: var(--muted); font-size: .68rem; }
+    .tree-line .warn { color: var(--orange); font-size: .68rem; }
+
+    .repo-right {
+      display: flex; flex-direction: column; gap: 12px;
+    }
+    .step {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 18px 20px;
+    }
+    .step-header {
+      display: flex; align-items: center; gap: 12px;
+      margin-bottom: 10px;
+    }
+    .step-num {
+      width: 32px; height: 32px; border-radius: 6px;
+      background: rgba(59,124,255,0.1);
+      border: 1px solid rgba(59,124,255,0.25);
+      font-family: 'DM Mono', monospace;
+      font-size: 1.25rem; color: var(--blue);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .step-title {
+      font-family: 'Syne', sans-serif; font-weight: 700;
+      font-size: 1rem; color: #fff;
+    }
+    .code-block {
+      background: rgba(0,0,0,0.25);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-family: 'DM Mono', monospace;
+      font-size: .72rem; line-height: 1.8;
+      color: var(--green);
+      margin-top: 8px;
+      overflow-x: auto;
+    }
+    .code-block .cmd-comment { color: var(--muted); }
+    .code-block .cmd-url { color: var(--orange); }
+
+    .security-row {
+      grid-column: 1 / -1;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px 24px;
+      display: flex; flex-wrap: wrap; gap: 16px; align-items: flex-start;
+    }
+    .security-heading {
+      font-family: 'Syne', sans-serif; font-weight: 700;
+      font-size: .88rem; color: #fff;
+      width: 100%; margin-bottom: 4px;
+    }
+    .sec-item {
+      display: flex; align-items: flex-start; gap: 10px;
+      flex: 1 1 200px;
+    }
+    .sec-dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      margin-top: 5px; flex-shrink: 0;
+    }
+    .sec-dot.b { background: var(--blue); }
+    .sec-dot.g { background: var(--green); }
+    .sec-dot.o { background: var(--orange); }
+    .sec-dot.p { background: #a78bfa; }
+    .sec-text {
+      font-family: 'DM Sans', sans-serif;
+      font-size: .82rem; line-height: 1.55; color: #ffffff;
+    }
+    .sec-text strong { color: #fff; font-weight: 500; }
+
+    /* ── CTA SECTION ── */
+    .cta {
+      position: relative; z-index: 1;
+      text-align: center;
+      overflow: hidden;
+    }
+    .cta::before {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 700px; height: 350px;
+      background: radial-gradient(ellipse at center, rgba(59,124,255,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .cta-heading {
+      font-family: 'Syne', sans-serif; font-weight: 800;
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      line-height: 1.1; color: #ffffff;
+      margin-bottom: 8px;
+    }
+    .cta-heading em { font-style: normal; color: var(--orange); display: block; }
+
+    .cta-sub {
+      font-size: .95rem; line-height: 1.8;
+      color: #ffffff;
+      max-width: 100%; margin: 16px auto 36px;
+    }
+
+    .cta-btn {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-family: 'DM Mono', monospace;
+      font-size: .8rem; letter-spacing: .1em;
+      text-transform: uppercase;
+      padding: 14px 32px; border-radius: 10px;
+      background: var(--blue);
+      color: #fff; text-decoration: none;
+      border: 1px solid transparent;
+      transition: background .2s, transform .2s, box-shadow .2s;
+    }
+    .cta-btn:hover {
+      background: #2f6de8;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(59,124,255,0.3);
+    }
+    .cta-btn svg { width: 14px; height: 14px; }
+
+    /* FOOTER */
+    footer {
+      position: relative; z-index: 1;
+      border-top: 1px solid var(--border);
+      padding: 24px 48px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    footer span {
+      font-family: 'DM Mono', monospace;
+      font-size: .72rem; letter-spacing: .08em; color: #ffffff;
+    }
+
+    /* RESPONSIVE */
+    @media(max-width: 1024px) {
+      .members-grid { grid-template-columns: repeat(2, 1fr); }
+      .about { grid-template-columns: 1fr; gap: 40px; }
+      .about-section-label { grid-column: 1; }
+    }
+    @media(max-width: 600px) {
+      header { padding: 0 20px; height: 52px; }
+      .h-logo { font-size: .75rem; }
+      .hero { padding: 20px 20px 20px; }
+      .hero-tagline { gap: 10px; }
+      .hero-tagline span { font-size: .7rem; }
+      .team-section { padding: 20px 20px 20px; }
+      .members-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+      .card { padding: 20px 10px 16px; border-radius: 14px; }
+      .avatar { width: 90px; height: 90px; }
+      .card-name { font-size: .9rem; }
+
+      /* ABOUT */
+      .about { padding: 0 20px 20px; gap: 20px; }
+      .about-section-label { padding-top: 20px; margin-bottom: 12px; }
+      .about-heading { font-size: 1.3rem; }
+      .about-body { font-size: .88rem; margin-bottom: 24px; }
+      .stack-tags { gap: 6px; }
+      .stack-tag { font-size: .6rem; padding: 4px 10px; }
+      .feature { padding: 14px 16px; gap: 12px; }
+      .feature-icon { width: 30px; height: 30px; border-radius: 8px; }
+      .feature-icon svg { width: 13px; height: 13px; }
+      .feature-title { font-size: .82rem; }
+      .feature-desc { font-size: .78rem; }
+
+      /* CTA */
+      .cta { padding: 20px 20px 10px; }
+      .cta-heading { font-size: 1.4rem; }
+      .cta-sub { font-size: .85rem; margin-bottom: 28px; }
+
+      /* REPO */
+      .repo { padding: 20px 20px 20px; }
+      .repo-section-label { padding-top: 7px; margin-bottom: 35px; }
+      .repo-grid { grid-template-columns: 1fr; gap: 12px; }
+      .repo-tree-body { font-size: .68rem; }
+      .code-block { font-size: .68rem; }
+      .security-row { grid-column: 1; }
+      .sec-item { flex: 1 1 100%; }
+
+      footer { flex-direction: column; gap: 8px; text-align: center; padding: 20px; }
+    }
+    @media(max-width: 380px) {
+      .members-grid { grid-template-columns: 1fr; }
+      .about-heading { font-size: 1.15rem; }
+      .cta-heading { font-size: 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="h-logo"><strong>V.A.K</strong> &nbsp;·&nbsp; Workforce Management System</div>
+</header>
+
+<div class="hero">
+  <h1 class="hero-title">V<span class="b">.</span>A<span class="o">.</span>K</h1>
+  <div class="hero-tagline">
+    <span>Eight Developers</span>
+    <div class="sep"></div>
+    <span>Three Squads</span>
+    <div class="sep"></div>
+    <span>One Mission</span>
+  </div>
+  <p class="hero-line">Meet the team behind <em>high-compliance hospitality tech.</em></p>
+  <p class="hero-sub">Eight engineers who built V.A.K the workforce operating layer that keeps restaurants compliant, profitable, and running without the chaos.</p>
+</div>
+
+<div class="team-section">
+  <div class="team-label">The Team</div>
+  <div class="members-grid">
+
+    <!-- CARD 1 -->
+    <div class="card">
+      <div class="avatar">
+        <svg viewBox="0 0 60 60" fill="none"><circle cx="30" cy="22" r="13" fill="rgba(59,124,255,0.3)"/><path d="M4 60 C4 42 14 34 30 34 C46 34 56 42 56 60Z" fill="rgba(59,124,255,0.2)"/></svg>
+      </div>
+      <div class="card-name">Zainab Tameem</div>
+      <div class="card-role">Project Manager · Frontend Developer</div>
+      <div class="card-links">
+        <a class="card-link" href="mailto:tameemz2005@gmail.com" title="Email">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#a0aec0" stroke-width="1.8"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 8l10 6 10-6"/></svg>
+        </a>
+        <a class="card-link" href="https://www.linkedin.com/in/zainab-tameem-a346aa33a/" title="LinkedIn" target="_blank">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#a0aec0" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="4"/><path d="M7 10v7M7 7v.01M12 17v-4a2 2 0 014 0v4M12 10v7"/></svg>
+        </a>
+      </div>
+      <span class="squad-tag tag-a">Squad Alpha</span>
+    </div>
+
+    <!-- CARD 2 -->
+    <div class="card">
+      <div class="avatar">
+        <img src="assets/KellyOkadaPereiraAires.jpeg" alt="Kelly Okada Pereira Aires" />
+      </div>
+      <div class="card-name">Kelly Okada Pereira Aires</div>
+      <div class="card-role">Frontend Developer</div>
+      <div class="card-links">
+        <a class="card-link" href="mailto:kelly.okada.p@gmail.com" title="Email">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#a0aec0" stroke-width="1.8"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 8l10 6 10-6"/></svg>
+        </a>
+        <a class="card-link" href="https://www.linkedin.com/in/kelly-okada-p-aires-1ba3bba2 " title="LinkedIn" target="_blank">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#a0aec0" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="4"/><path d="M7 10v7M7 7v.01M12 17v-4a2 2 0 014 0v4M12 10v7"/></svg>
+        </a>
+      </div>
+      <span class="squad-tag tag-a">Squad Alpha</span>
+    </div>
+
+    <!-- CARD 3 -->
+    <div class="card">
+      <div class="avatar">
+        <svg viewBox="0 0 60 60" fill="none"><circle cx="30" cy="22" r="13" fill="rgba(59,124,255,0.3)"/><path d="M4 60 C4 42 14 34 30 34 C46 34 56 42 56 60Z" fill="rgba(59,124,255,0.2)"/></svg>
+      </div>
+      <div class="card-name">Yashneet Kaur</div>
+      <div class="card-role">Frontend Developer</div>
+      <div class="card-links">
+        <a class="card-link" href="" title="Email">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#a0aec0" stroke-width="1.8"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 8l10 6 10-6"/></svg>
+        </a>
+        <a class="card-link" href="" title="LinkedIn" target="_blank">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#a0aec0" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="4"/><path d="M7 10v7M7 7v.01M12 17v-4a2 2 0 014 0v4M12 10v7"/></svg>
+        </a>
+      </div>
+      <span class="squad-tag tag-a">Squad Alpha</span>
+    </div>
+
+    <!-- CARD 4 -->
+    <div class="card">
+      <div class="avatar">
+        <svg viewBox="0 0 60 60" fill="none"><circle cx="30" cy="22" r="13" fill="rgba(245,166,35,0.3)"/><path d="M4 60 C4 42 14 34 30 34 C46 34 56 42 56 60Z" fill="rgba(245,166,35,0.2)"/></svg>
+      </div>
+      <div class="card-name">Vanshdeep Singh</div>
+      <div class="card-role">Frontend Developer</div>
+      <div class="card-links">
+        <a class="card-link" href="" title="Email">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#a0aec0" stroke-width="1.8"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 8l10 6 10-6"/></svg>
+        </a>
+        <a class="card-link" href="" title="LinkedIn" target="_blank">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#a0aec0" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="4"/><path d="M7 10v7M7 7v.01M12 17v-4a2 2 0 014 0v4M12 10v7"/></svg>
+        </a>
+      </div>
+      <span class="squad-tag tag-b">Squad Beta</span>
+    </div>
+
+    <!-- CARD 5 -->
+    <div class="card">
+      <div class="avatar">
+        <svg viewBox="0 0 60 60" fill="none"><circle cx="30" cy="22" r="13" fill="rgba(245,166,35,0.3)"/><path d="M4 60 C4 42 14 34 30 34 C46 34 56 42 56 60Z" fill="rgba(245,166,35,0.2)"/></svg>
+      </div>
+      <div class="card-name">Ahmad Al Khodr</div>
+      <div class="card-role">Frontend Developer</div>
+      <div class="card-links">
+        <a class="card-link" href="" title="Email">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#a0aec0" stroke-width="1.8"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 8l10 6 10-6"/></svg>
+        </a>
+        <a class="card-link" href="" title="LinkedIn" target="_blank">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#a0aec0" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="4"/><path d="M7 10v7M7 7v.01M12 17v-4a2 2 0 014 0v4M12 10v7"/></svg>
+        </a>
+      </div>
+      <span class="squad-tag tag-b">Squad Beta</span>
+    </div>
+
+    <!-- CARD 6 -->
+    <div class="card">
+      <div class="avatar">
+        <img src="assets/ChongYuHau.jpg" alt="Chong Yu Hau" />
+      </div>
+      <div class="card-name">Chong Yu Hau</div>
+      <div class="card-role">Frontend Developer</div>
+      <div class="card-links">
+        <a class="card-link" href="mailto:morvenhau@gmail.com" title="Email">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#a0aec0" stroke-width="1.8"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 8l10 6 10-6"/></svg>
+        </a>
+        <a class="card-link" href="https://www.linkedin.com/in/chong-yu-hau-5497a3226/" title="LinkedIn" target="_blank">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#a0aec0" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="4"/><path d="M7 10v7M7 7v.01M12 17v-4a2 2 0 014 0v4M12 10v7"/></svg>
+        </a>
+      </div>
+      <span class="squad-tag tag-b">Squad Beta</span>
+    </div>
+
+    <!-- CARD 7 -->
+    <div class="card">
+    <div class="avatar">
+      <img src="assets/MiaMasroorAhamed.jpg" alt="Mia Masroor Ahamed" style="object-position: center 30%;" />
+    </div>
+      <div class="card-name">Mia Masroor Ahamed</div>
+      <div class="card-role">tech lead · backend developer</div>
+      <div class="card-links">
+        <a class="card-link" href="mailto:wasif4930@gmail.com" title="Email">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#a0aec0" stroke-width="1.8"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 8l10 6 10-6"/></svg>
+        </a>
+        <a class="card-link" href="https://www.linkedin.com/in/mia-ahamed-a07876184/" title="LinkedIn" target="_blank">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#a0aec0" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="4"/><path d="M7 10v7M7 7v.01M12 17v-4a2 2 0 014 0v4M12 10v7"/></svg>
+        </a>
+      </div>
+      <span class="squad-tag tag-c">Squad Gamma</span>
+    </div>
+
+    <!-- CARD 8 -->
+    <div class="card">
+      <div class="avatar">
+        <svg viewBox="0 0 60 60" fill="none"><circle cx="30" cy="22" r="13" fill="rgba(0,229,160,0.3)"/><path d="M4 60 C4 42 14 34 30 34 C46 34 56 42 56 60Z" fill="rgba(0,229,160,0.2)"/></svg>
+      </div>
+      <div class="card-name">Ailton Ribeiro Junior</div>
+      <div class="card-role">backend developer</div>
+      <div class="card-links">
+        <a class="card-link" href="mailto:ailton@email.com" title="Email">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#a0aec0" stroke-width="1.8"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 8l10 6 10-6"/></svg>
+        </a>
+        <a class="card-link" href="https://www.linkedin.com/in/ailton-ribeiro-junior-0aa7b9b5/" title="LinkedIn" target="_blank">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#a0aec0" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="4"/><path d="M7 10v7M7 7v.01M12 17v-4a2 2 0 014 0v4M12 10v7"/></svg>
+        </a>
+      </div>
+      <span class="squad-tag tag-c">Squad Gamma</span>
+    </div>
+
+  </div>
+</div>
+
+<!-- ── ABOUT THE PROJECT ── -->
+<div class="about">
+  <div class="about-section-label" style="grid-column:1/-1;">About the Project</div>
+
+  <div class="about-left">
+    <h2 class="about-heading">
+      The operating system for<br>
+      <em>high-compliance hospitality.</em>
+    </h2>
+    <p class="about-body">
+      V.A.K is a vertical Workforce Management Operating System built specifically for the low-margin, high-compliance restaurant industry. Built on a hybrid serverless microservices architecture, it enforces strict financial compliance while delivering a fluid, mobile-first experience.
+    </p>
+    <div class="stack-label">Built With</div>
+    <div class="stack-tags">
+      <span class="stack-tag hi">React Native</span>
+      <span class="stack-tag">Expo</span>
+      <span class="stack-tag">Supabase</span>
+      <span class="stack-tag hi">.NET 8</span>
+      <span class="stack-tag">Turborepo</span>
+      <span class="stack-tag">NativeWind</span>
+      <span class="stack-tag">Google Gemini</span>
+      <span class="stack-tag">Zod</span>
+    </div>
+  </div>
+
+  <div class="about-right">
+    <div class="feature">
+      <div class="feature-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#3b7cff" stroke-width="1.8">
+          <circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="9" stroke-dasharray="3 3"/>
+          <path d="M12 3v2M12 19v2M3 12h2M19 12h2"/>
+        </svg>
+      </div>
+      <div>
+        <div class="feature-title">Geo-Fenced Attendance</div>
+        <div class="feature-desc">GPS-verified clock-ins with a &lt;50m proximity rule. No buddy punching, ever.</div>
+      </div>
+    </div>
+
+    <div class="feature">
+      <div class="feature-icon orange">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#f5a623" stroke-width="1.8">
+          <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+        </svg>
+      </div>
+      <div>
+        <div class="feature-title">Live Schedule via WebSockets</div>
+        <div class="feature-desc">Zero-latency real-time shift publishing. Every device updates the instant a manager saves.</div>
+      </div>
+    </div>
+
+    <div class="feature">
+      <div class="feature-icon green">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#00e5a0" stroke-width="1.8">
+          <rect x="3" y="3" width="18" height="18" rx="3"/>
+          <path d="M9 12l2 2 4-4"/>
+        </svg>
+      </div>
+      <div>
+        <div class="feature-title">8/44 Compliance Engine</div>
+        <div class="feature-desc">Automated overtime calculation via .NET 8 - full Alberta Labour Standards adherence built in.</div>
+      </div>
+    </div>
+
+    <div class="feature">
+      <div class="feature-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#3b7cff" stroke-width="1.8">
+          <path d="M17 3l4 4-4 4M7 21l-4-4 4-4M14 5l-4 14"/>
+        </svg>
+      </div>
+      <div>
+        <div class="feature-title">P2P Shift Marketplace</div>
+        <div class="feature-desc">Employees swap shifts directly. Manager approval queues keep control in the right hands.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── REPO ── -->
+<div class="repo">
+  <div class="repo-section-label">The Repository</div>
+  <div class="repo-grid">
+
+    <!-- FILE TREE -->
+    <div class="repo-tree">
+      <div class="repo-tree-header">
+        <div class="tree-dot r"></div><div class="tree-dot y"></div><div class="tree-dot g"></div>
+        <span class="repo-tree-title">vak-monorepo &nbsp;·&nbsp; pnpm workspace</span>
+      </div>
+      <div class="repo-tree-body">
+        <div class="tree-line"><span>vak-monorepo/</span></div>
+        <div class="tree-line"><span>├── <span class="dir">apps/</span></span></div>
+        <div class="tree-line"><span>&nbsp;&nbsp;&nbsp;├── <span class="dir">mobile/</span></span><span class="note">&nbsp;# Employee App (Expo/RN)</span></div>
+        <div class="tree-line"><span>&nbsp;&nbsp;&nbsp;├── <span class="dir">web/</span></span><span class="note">&nbsp;# Manager Dashboard</span></div>
+        <div class="tree-line"><span>&nbsp;&nbsp;&nbsp;└── <span class="dir">api-engine/</span></span><span class="note">&nbsp;# .NET 8 Payroll (C#)</span></div>
+        <div class="tree-line"><span>├── <span class="dir">packages/</span></span></div>
+        <div class="tree-line"><span>&nbsp;&nbsp;&nbsp;├── <span class="dir">ui/</span></span><span class="note">&nbsp;# Shared UI components</span></div>
+        <div class="tree-line"><span>&nbsp;&nbsp;&nbsp;└── <span class="dir">contract/</span></span><span class="note">&nbsp;# Zod schemas &amp; types</span></div>
+        <div class="tree-line"><span>├── <span class="dir">.github/workflows/</span></span><span class="note">&nbsp;# CI/CD</span></div>
+        <div class="tree-line"><span>├── <span class="file">turbo.json</span></span><span class="note">&nbsp;# Task runner</span></div>
+        <div class="tree-line"><span>└── <span class="file">.npmrc</span></span><span class="warn">&nbsp;# node-linker=hoisted ⚠</span></div>
+      </div>
+    </div>
+
+    <!-- SQUAD CONTRIBUTIONS -->
+    <div class="repo-right">
+      <div class="step">
+        <div class="step-header">
+          <div class="step-num" style="background:rgba(59,124,255,0.1);border-color:rgba(59,124,255,0.25);color:var(--blue);">α</div>
+          <div class="step-title">Squad Alpha &nbsp;<span style="font-family:'DM Mono',monospace;font-size:0.85rem;color:var(--blue);font-weight:400;letter-spacing:.1em;">MOBILE</span></div>
+        </div>
+        <div style="font-family:'DM Sans',sans-serif;font-size:.83rem;line-height:1.65;color:#ffffff;">Built the employee-facing React Native app - clock-in flows, geo-fence UI, shift viewing, and push notifications via Expo.</div>
+        <div class="code-block" style="margin-top:10px;"><span class="cmd-comment"># apps/mobile</span><br>pnpm run dev</div>
+      </div>
+
+      <div class="step">
+        <div class="step-header">
+          <div class="step-num" style="background:rgba(245,166,35,0.1);border-color:rgba(245,166,35,0.25);color:var(--orange);">β</div>
+          <div class="step-title">Squad Beta &nbsp;<span style="font-family:'DM Mono',monospace;font-size:0.85rem;color:var(--orange);font-weight:400;letter-spacing:.1em;">WEB</span></div>
+        </div>
+        <div style="font-family:'DM Sans',sans-serif;font-size:.83rem;line-height:1.65;color:#ffffff;">Built the manager dashboard - schedule builder, shift approval queue, P2P swap review, and real-time WebSocket listeners.</div>
+        <div class="code-block" style="margin-top:10px;"><span class="cmd-comment"># apps/web</span><br>pnpm run dev &nbsp;<span class="cmd-comment"># → localhost:8082</span></div>
+      </div>
+
+      <div class="step">
+        <div class="step-header">
+          <div class="step-num" style="background:rgba(0,229,160,0.07);border-color:rgba(0,229,160,0.25);color:var(--green);">γ</div>
+          <div class="step-title">Squad Gamma &nbsp;<span style="font-family:'DM Mono',monospace;font-size:0.85rem;color:var(--green);font-weight:400;letter-spacing:.1em;">BACKEND</span></div>
+        </div>
+        <div style="font-family:'DM Sans',sans-serif;font-size:.83rem;line-height:1.65;color:#ffffff;">Built the .NET 8 compliance engine - 8/44 overtime rules, Alberta Labour Standards enforcement, Supabase RLS policies, and CI/CD pipelines.</div>
+        <div class="code-block" style="margin-top:10px;"><span class="cmd-comment"># apps/api-engine</span><br>dotnet run</div>
+      </div>
+    </div>
+
+    <!-- SECURITY -->
+    <div class="security-row">
+      <div class="security-heading">Security &amp; Compliance</div>
+      <div class="sec-item">
+        <div class="sec-dot b"></div>
+        <div class="sec-text"><strong>Row Level Security</strong> - All DB access scoped to <code>restaurant_id</code> at the Postgres level.</div>
+      </div>
+      <div class="sec-item">
+        <div class="sec-dot g"></div>
+        <div class="sec-text"><strong>Shared Types Contract</strong> - Zod schemas keep frontend &amp; backend in sync, always.</div>
+      </div>
+      <div class="sec-item">
+        <div class="sec-dot o"></div>
+        <div class="sec-text"><strong>PIPEDA Compliant</strong> - All PII &amp; labour data stored in Canada (Central).</div>
+      </div>
+      <div class="sec-item">
+        <div class="sec-dot p"></div>
+        <div class="sec-text"><strong>Protected Main</strong> - Branch rules enforced. No direct pushes to <code>main</code>.</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<section class="cta">
+  <h2 class="cta-heading">
+    Have a project in mind?
+    <em>We'd love to hear it.</em>
+  </h2>
+  <p class="cta-sub">We're a full-stack team comfortable with compliance-critical systems, real-time apps, and modern serverless architecture.</p>
+</section>
+<footer>
+  <span>V.A.K &nbsp;·&nbsp; Valence · Axiom · Kairos</span>
+</footer>
+</body>
+</html>
