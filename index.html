@@ -28,6 +28,10 @@
       color: var(--text);
       font-family: 'DM Sans', sans-serif;
       font-weight: 300;
+      font-synthesis: none;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
     }
 
     body::before {
@@ -77,6 +81,7 @@
       line-height: .80; letter-spacing: -.02em;
       color: #ffffff;
       margin-bottom: 15px;
+      font-synthesis: none;
     }
     .hero-title .b { color: var(--blue); }
     .hero-title .o { color: var(--orange); }
@@ -100,6 +105,7 @@
       font-size: clamp(1.2rem, 2.8vw, 1.7rem);
       line-height: 1.35; color: #ffffff;
       max-width: 100%; margin: 0 auto 16px;
+      font-synthesis: none;
     }
     .hero-line em { font-style: normal; color: var(--orange); }
 
@@ -139,7 +145,6 @@
       transition: border-color .25s, transform .25s, opacity 0.55s ease;
       display: flex; flex-direction: column; align-items: center;
     }
-    /* Cards also participate in reveal; override transform so hover still works */
     .card.reveal { transform: translateY(40px); }
     .card.reveal.visible { transform: translateY(0); }
     .card.reveal.visible:hover { transform: translateY(-4px); }
@@ -159,6 +164,7 @@
     .card-name {
       font-family: 'Syne', sans-serif; font-weight: 700;
       font-size: 1.05rem; margin-bottom: 5px; color: #ffffff;
+      font-synthesis: none;
     }
     .card-role {
       font-family: 'DM Mono', monospace;
@@ -216,10 +222,13 @@
     .about-section-label::after { content:''; flex:1; height:1px; background:#919191; }
 
     .about-heading {
-      font-family: 'Syne', sans-serif; font-weight: 800;
+      font-family: 'Syne', sans-serif; font-weight: 700;
       font-size: clamp(1.3rem, 2.2vw, 1.8rem);
-      line-height: 1.15; color: #ffffff;
+      line-height: 1.25;
+      color: #ffffff;
       margin-bottom: 18px;
+      font-synthesis: none;
+      letter-spacing: -0.01em;
     }
     .about-heading em { font-style: normal; color: var(--orange); }
 
@@ -280,6 +289,7 @@
     .feature-title {
       font-family: 'Syne', sans-serif; font-weight: 700;
       font-size: .9rem; color: #ffffff; margin-bottom: 4px;
+      font-synthesis: none;
     }
     .feature-desc {
       font-family: 'DM Sans', sans-serif;
@@ -366,6 +376,7 @@
     .step-title {
       font-family: 'Syne', sans-serif; font-weight: 700;
       font-size: 1rem; color: #fff;
+      font-synthesis: none;
     }
     .code-block {
       background: rgba(0,0,0,0.25);
@@ -393,6 +404,7 @@
       font-family: 'Syne', sans-serif; font-weight: 700;
       font-size: .88rem; color: #fff;
       width: 100%; margin-bottom: 4px;
+      font-synthesis: none;
     }
     .sec-item {
       display: flex; align-items: flex-start; gap: 10px;
@@ -429,10 +441,13 @@
     }
 
     .cta-heading {
-      font-family: 'Syne', sans-serif; font-weight: 800;
+      font-family: 'Syne', sans-serif; font-weight: 700;
       font-size: clamp(1.6rem, 3vw, 2.2rem);
-      line-height: 1.1; color: #ffffff;
+      line-height: 1.2;
+      color: #ffffff;
       margin-bottom: 8px;
+      font-synthesis: none;
+      letter-spacing: -0.01em;
     }
     .cta-heading em { font-style: normal; color: var(--orange); display: block; }
 
@@ -522,7 +537,6 @@
       .cta-heading { font-size: 1.2rem; }
     }
 
-    /* Respect users who prefer no motion */
     @media (prefers-reduced-motion: reduce) {
       .reveal { opacity: 1; transform: none; transition: none; }
     }
