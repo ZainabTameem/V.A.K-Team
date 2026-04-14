@@ -40,6 +40,17 @@
       pointer-events: none; z-index: 0;
     }
 
+    /* ── SCROLL ANIMATION BASE ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.55s ease, transform 0.55s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
     /* HEADER */
     header {
       position: relative; z-index: 10;
@@ -125,13 +136,15 @@
       border-radius: 16px;
       padding: 28px 16px 22px;
       text-align: center;
-      transition: border-color .25s, transform .25s;
+      transition: border-color .25s, transform .25s, opacity 0.55s ease;
       display: flex; flex-direction: column; align-items: center;
     }
-    .card:hover {
-      border-color: var(--orange);
-      transform: translateY(-4px);
-    }
+    /* Cards also participate in reveal; override transform so hover still works */
+    .card.reveal { transform: translateY(40px); }
+    .card.reveal.visible { transform: translateY(0); }
+    .card.reveal.visible:hover { transform: translateY(-4px); }
+
+    .card:hover { border-color: var(--orange); }
 
     .avatar {
       width: 120px; height: 120px; border-radius: 50%;
@@ -247,12 +260,12 @@
       border-radius: 14px;
       padding: 20px 22px;
       display: flex; gap: 18px; align-items: flex-start;
-      transition: border-color .25s, transform .2s;
+      transition: border-color .25s, transform .2s, opacity 0.55s ease;
     }
-    .feature:hover {
-      border-color: rgba(59,124,255,0.35);
-      transform: translateX(4px);
-    }
+    .feature.reveal { transform: translateY(40px); }
+    .feature.reveal.visible { transform: translateY(0); }
+    .feature.reveal.visible:hover { border-color: rgba(59,124,255,0.35); transform: translateX(4px); }
+
     .feature-icon {
       width: 36px; height: 36px; border-radius: 10px;
       background: rgba(59,124,255,0.08);
@@ -477,7 +490,6 @@
       .avatar { width: 90px; height: 90px; }
       .card-name { font-size: .9rem; }
 
-      /* ABOUT */
       .about { padding: 0 20px 20px; gap: 20px; }
       .about-section-label { padding-top: 20px; margin-bottom: 12px; }
       .about-heading { font-size: 1.3rem; }
@@ -490,12 +502,10 @@
       .feature-title { font-size: .82rem; }
       .feature-desc { font-size: .78rem; }
 
-      /* CTA */
       .cta { padding: 20px 20px 10px; }
       .cta-heading { font-size: 1.4rem; }
       .cta-sub { font-size: .85rem; margin-bottom: 28px; }
 
-      /* REPO */
       .repo { padding: 20px 20px 20px; }
       .repo-section-label { padding-top: 7px; margin-bottom: 35px; }
       .repo-grid { grid-template-columns: 1fr; gap: 12px; }
@@ -511,6 +521,11 @@
       .about-heading { font-size: 1.15rem; }
       .cta-heading { font-size: 1.2rem; }
     }
+
+    /* Respect users who prefer no motion */
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; transition: none; }
+    }
   </style>
 </head>
 <body>
@@ -520,24 +535,24 @@
 </header>
 
 <div class="hero">
-  <h1 class="hero-title">V<span class="b">.</span>A<span class="o">.</span>K</h1>
-  <div class="hero-tagline">
+  <h1 class="hero-title reveal">V<span class="b">.</span>A<span class="o">.</span>K</h1>
+  <div class="hero-tagline reveal" style="transition-delay: 0.1s;">
     <span>Eight Developers</span>
     <div class="sep"></div>
     <span>Three Squads</span>
     <div class="sep"></div>
     <span>One Mission</span>
   </div>
-  <p class="hero-line">Meet the team behind <em>high-compliance hospitality tech.</em></p>
-  <p class="hero-sub">Eight engineers who built V.A.K the workforce operating layer that keeps restaurants compliant, profitable, and running without the chaos.</p>
+  <p class="hero-line reveal" style="transition-delay: 0.2s;">Meet the team behind <em>high-compliance hospitality tech.</em></p>
+  <p class="hero-sub reveal" style="transition-delay: 0.3s;">Eight engineers who built V.A.K the workforce operating layer that keeps restaurants compliant, profitable, and running without the chaos.</p>
 </div>
 
 <div class="team-section">
-  <div class="team-label">The Team</div>
+  <div class="team-label reveal">The Team</div>
   <div class="members-grid">
 
     <!-- CARD 1 -->
-    <div class="card">
+    <div class="card reveal" style="transition-delay: 0.05s;">
       <div class="avatar">
         <svg viewBox="0 0 60 60" fill="none"><circle cx="30" cy="22" r="13" fill="rgba(59,124,255,0.3)"/><path d="M4 60 C4 42 14 34 30 34 C46 34 56 42 56 60Z" fill="rgba(59,124,255,0.2)"/></svg>
       </div>
@@ -555,7 +570,7 @@
     </div>
 
     <!-- CARD 2 -->
-    <div class="card">
+    <div class="card reveal" style="transition-delay: 0.10s;">
       <div class="avatar">
         <img src="assets/KellyOkadaPereiraAires.jpeg" alt="Kelly Okada Pereira Aires" />
       </div>
@@ -573,7 +588,7 @@
     </div>
 
     <!-- CARD 3 -->
-    <div class="card">
+    <div class="card reveal" style="transition-delay: 0.15s;">
       <div class="avatar">
         <svg viewBox="0 0 60 60" fill="none"><circle cx="30" cy="22" r="13" fill="rgba(59,124,255,0.3)"/><path d="M4 60 C4 42 14 34 30 34 C46 34 56 42 56 60Z" fill="rgba(59,124,255,0.2)"/></svg>
       </div>
@@ -591,7 +606,7 @@
     </div>
 
     <!-- CARD 4 -->
-    <div class="card">
+    <div class="card reveal" style="transition-delay: 0.20s;">
       <div class="avatar">
         <svg viewBox="0 0 60 60" fill="none"><circle cx="30" cy="22" r="13" fill="rgba(245,166,35,0.3)"/><path d="M4 60 C4 42 14 34 30 34 C46 34 56 42 56 60Z" fill="rgba(245,166,35,0.2)"/></svg>
       </div>
@@ -609,7 +624,7 @@
     </div>
 
     <!-- CARD 5 -->
-    <div class="card">
+    <div class="card reveal" style="transition-delay: 0.25s;">
       <div class="avatar">
         <svg viewBox="0 0 60 60" fill="none"><circle cx="30" cy="22" r="13" fill="rgba(245,166,35,0.3)"/><path d="M4 60 C4 42 14 34 30 34 C46 34 56 42 56 60Z" fill="rgba(245,166,35,0.2)"/></svg>
       </div>
@@ -627,7 +642,7 @@
     </div>
 
     <!-- CARD 6 -->
-    <div class="card">
+    <div class="card reveal" style="transition-delay: 0.30s;">
       <div class="avatar">
         <img src="assets/ChongYuHau.jpg" alt="Chong Yu Hau" />
       </div>
@@ -645,10 +660,10 @@
     </div>
 
     <!-- CARD 7 -->
-    <div class="card">
-    <div class="avatar">
-      <img src="assets/MiaMasroorAhamed.jpg" alt="Mia Masroor Ahamed" style="object-position: center 30%;" />
-    </div>
+    <div class="card reveal" style="transition-delay: 0.35s;">
+      <div class="avatar">
+        <img src="assets/MiaMasroorAhamed.jpg" alt="Mia Masroor Ahamed" style="object-position: center 30%;" />
+      </div>
       <div class="card-name">Mia Masroor Ahamed</div>
       <div class="card-role">tech lead · backend developer</div>
       <div class="card-links">
@@ -663,7 +678,7 @@
     </div>
 
     <!-- CARD 8 -->
-    <div class="card">
+    <div class="card reveal" style="transition-delay: 0.40s;">
       <div class="avatar">
         <svg viewBox="0 0 60 60" fill="none"><circle cx="30" cy="22" r="13" fill="rgba(0,229,160,0.3)"/><path d="M4 60 C4 42 14 34 30 34 C46 34 56 42 56 60Z" fill="rgba(0,229,160,0.2)"/></svg>
       </div>
@@ -685,9 +700,9 @@
 
 <!-- ── ABOUT THE PROJECT ── -->
 <div class="about">
-  <div class="about-section-label" style="grid-column:1/-1;">About the Project</div>
+  <div class="about-section-label reveal" style="grid-column:1/-1;">About the Project</div>
 
-  <div class="about-left">
+  <div class="about-left reveal" style="transition-delay: 0.05s;">
     <h2 class="about-heading">
       The operating system for<br>
       <em>high-compliance hospitality.</em>
@@ -709,7 +724,7 @@
   </div>
 
   <div class="about-right">
-    <div class="feature">
+    <div class="feature reveal" style="transition-delay: 0.05s;">
       <div class="feature-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="#3b7cff" stroke-width="1.8">
           <circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="9" stroke-dasharray="3 3"/>
@@ -722,7 +737,7 @@
       </div>
     </div>
 
-    <div class="feature">
+    <div class="feature reveal" style="transition-delay: 0.12s;">
       <div class="feature-icon orange">
         <svg viewBox="0 0 24 24" fill="none" stroke="#f5a623" stroke-width="1.8">
           <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
@@ -734,7 +749,7 @@
       </div>
     </div>
 
-    <div class="feature">
+    <div class="feature reveal" style="transition-delay: 0.19s;">
       <div class="feature-icon green">
         <svg viewBox="0 0 24 24" fill="none" stroke="#00e5a0" stroke-width="1.8">
           <rect x="3" y="3" width="18" height="18" rx="3"/>
@@ -747,7 +762,7 @@
       </div>
     </div>
 
-    <div class="feature">
+    <div class="feature reveal" style="transition-delay: 0.26s;">
       <div class="feature-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="#3b7cff" stroke-width="1.8">
           <path d="M17 3l4 4-4 4M7 21l-4-4 4-4M14 5l-4 14"/>
@@ -763,11 +778,11 @@
 
 <!-- ── REPO ── -->
 <div class="repo">
-  <div class="repo-section-label">The Repository</div>
+  <div class="repo-section-label reveal">The Repository</div>
   <div class="repo-grid">
 
     <!-- FILE TREE -->
-    <div class="repo-tree">
+    <div class="repo-tree reveal" style="transition-delay: 0.05s;">
       <div class="repo-tree-header">
         <div class="tree-dot r"></div><div class="tree-dot y"></div><div class="tree-dot g"></div>
         <span class="repo-tree-title">vak-monorepo &nbsp;·&nbsp; pnpm workspace</span>
@@ -789,7 +804,7 @@
 
     <!-- SQUAD CONTRIBUTIONS -->
     <div class="repo-right">
-      <div class="step">
+      <div class="step reveal" style="transition-delay: 0.10s;">
         <div class="step-header">
           <div class="step-num" style="background:rgba(59,124,255,0.1);border-color:rgba(59,124,255,0.25);color:var(--blue);">α</div>
           <div class="step-title">Squad Alpha &nbsp;<span style="font-family:'DM Mono',monospace;font-size:0.85rem;color:var(--blue);font-weight:400;letter-spacing:.1em;">MOBILE</span></div>
@@ -798,7 +813,7 @@
         <div class="code-block" style="margin-top:10px;"><span class="cmd-comment"># apps/mobile</span><br>pnpm run dev</div>
       </div>
 
-      <div class="step">
+      <div class="step reveal" style="transition-delay: 0.18s;">
         <div class="step-header">
           <div class="step-num" style="background:rgba(245,166,35,0.1);border-color:rgba(245,166,35,0.25);color:var(--orange);">β</div>
           <div class="step-title">Squad Beta &nbsp;<span style="font-family:'DM Mono',monospace;font-size:0.85rem;color:var(--orange);font-weight:400;letter-spacing:.1em;">WEB</span></div>
@@ -807,7 +822,7 @@
         <div class="code-block" style="margin-top:10px;"><span class="cmd-comment"># apps/web</span><br>pnpm run dev &nbsp;<span class="cmd-comment"># → localhost:8082</span></div>
       </div>
 
-      <div class="step">
+      <div class="step reveal" style="transition-delay: 0.26s;">
         <div class="step-header">
           <div class="step-num" style="background:rgba(0,229,160,0.07);border-color:rgba(0,229,160,0.25);color:var(--green);">γ</div>
           <div class="step-title">Squad Gamma &nbsp;<span style="font-family:'DM Mono',monospace;font-size:0.85rem;color:var(--green);font-weight:400;letter-spacing:.1em;">BACKEND</span></div>
@@ -818,7 +833,7 @@
     </div>
 
     <!-- SECURITY -->
-    <div class="security-row">
+    <div class="security-row reveal" style="transition-delay: 0.1s;">
       <div class="security-heading">Security &amp; Compliance</div>
       <div class="sec-item">
         <div class="sec-dot b"></div>
@@ -842,14 +857,31 @@
 </div>
 
 <section class="cta">
-  <h2 class="cta-heading">
+  <h2 class="cta-heading reveal">
     Have a project in mind?
     <em>We'd love to hear it.</em>
   </h2>
-  <p class="cta-sub">We're a full-stack team comfortable with compliance-critical systems, real-time apps, and modern serverless architecture.</p>
+  <p class="cta-sub reveal" style="transition-delay: 0.1s;">We're a full-stack team comfortable with compliance-critical systems, real-time apps, and modern serverless architecture.</p>
 </section>
+
 <footer>
   <span>V.A.K &nbsp;·&nbsp; Valence · Axiom · Kairos</span>
 </footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {
+    threshold: 0.1,
+    rootMargin: '0px 0px -40px 0px'
+  });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
 </body>
 </html>
